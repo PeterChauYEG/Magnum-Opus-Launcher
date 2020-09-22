@@ -1,8 +1,11 @@
 version: 2.1
+orbs:
+  win: circleci/windows@2.2.0
 jobs:
   build:
-    docker:
-      - image: cimg/ruby:2.7.1-node
+    executor:
+      name: win/default
+      shell: powershell.exe
     steps:
       - checkout
       - run: yarn
