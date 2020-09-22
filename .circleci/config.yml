@@ -6,7 +6,7 @@ jobs:
   build-win:
     executor:
       name: win/default
-      shell: powershell.exe
+#      shell: powershell.exe
     working_directory: /app
     steps:
       - checkout
