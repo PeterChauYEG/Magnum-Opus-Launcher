@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   win: circleci/windows@2.2.0
+  aws-s3: circleci/aws-s3@x.y
 jobs:
   build-win:
     executor:
@@ -11,9 +12,13 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run make
-      - run: ren /app/out/make/zip/win32/x64/magnum-opus-launcher-win32-* /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
-      - store_artifacts:
-          path: /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
+      - run: ren /app/out/make/zip/win32/x64/magnum-opus-launcher? /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
+#      - store_artifacts:
+#          path: /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from: /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
+          to: 's3://magnum-opus-launcher/windows
 workflows:
   version: 2
   build-deploy:
