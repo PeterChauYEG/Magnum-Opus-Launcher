@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   win: circleci/windows@2.2.0
 jobs:
-  build:
+  build-win:
     executor:
       name: win/default
       shell: powershell.exe
@@ -11,5 +11,14 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run make
+      - run: ren /app/out/make/zip/win32/x64/magnum-opus-launcher-win32-* /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
       - store_artifacts:
-          path: /app/out
+          path: /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build-win:
+          filters:
+            branches:
+              only: master
