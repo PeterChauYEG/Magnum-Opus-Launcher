@@ -13,7 +13,7 @@ jobs:
       - run: npm install
       - run: npm run make
       - run: cd /app/out/make/zip/win32/x64/
-      - run: * magnum-opus-launcher.zip
+      - run: ren * magnum-opus-launcher.zip
 #      - store_artifacts:
 #          path: /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
       - aws-s3/copy:
