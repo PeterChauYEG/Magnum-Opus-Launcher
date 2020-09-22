@@ -1,8 +1,9 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
 jobs:
   build:
+    docker:
+      - image: cimg/ruby:2.7.1-node
     steps:
       - checkout
+      - run: yarn
       - run: yarn make
