@@ -8,5 +8,5 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
-      - run: yarn
-      - run: yarn make
+      - run: npm install
+      - run: npm run make
