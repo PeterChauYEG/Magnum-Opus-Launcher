@@ -6,7 +6,11 @@ jobs:
     executor:
       name: win/default
       shell: powershell.exe
+  working_directory: ~/app
+
     steps:
       - checkout
       - run: npm install
       - run: npm run make
+      - store_artifacts:
+        path: /out
