@@ -15,6 +15,12 @@ jobs:
       - run: cd /app/out/make/zip/win32/x64; Get-ChildItem * | Rename-Item -NewName magnum-opus-launcher.zip
 #      - store_artifacts:
 #          path: /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
+  deploy-win:
+    docker:
+      - image: 'cimg/python:3.6'
+    working_directory: /app
+    steps:
+      - checkout
       - aws-s3/copy:
           arguments: '--dryrun'
           from: /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
@@ -24,6 +30,10 @@ workflows:
   build-deploy:
     jobs:
       - build-win:
+          filters:
+            branches:
+              only: master
+      - deploy-win:
           filters:
             branches:
               only: master
