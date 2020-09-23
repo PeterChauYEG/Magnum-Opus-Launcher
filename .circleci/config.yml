@@ -14,7 +14,7 @@ jobs:
       - run: npm run make
       - run: cd ~/app/out/make/zip/win32/x64; Get-ChildItem * | Rename-Item -NewName magnum-opus-launcher.zip
       - persist_to_workspace:
-          root: /tmp/dir
+          root: /tmp/workspace
           path: ~/app/out/make/zip/win32/x64/magnum-opus-launcher.zip
   deploy-win:
     docker:
@@ -26,7 +26,7 @@ jobs:
       - checkout
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: /tmp/dir/magnum-opus-launcher.zip
+          from: /tmp/workspace/magnum-opus-launcher.zip
           to: s3://magnum-opus-launcher/windows
 workflows:
   version: 2
