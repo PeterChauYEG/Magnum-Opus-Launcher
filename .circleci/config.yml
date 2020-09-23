@@ -23,9 +23,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/app
-#      - checkout
       - aws-s3/copy:
-          arguments: '--dryrun'
           from: ~/app/out/make/zip/win32/x64/magnum-opus-launcher.zip
           to: s3://magnum-opus-launcher/windows
 workflows:
