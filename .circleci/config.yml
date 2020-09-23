@@ -20,6 +20,7 @@ jobs:
       - image: 'cimg/python:3.6'
     working_directory: /app
     steps:
+      - run: chown -R $USER:$USER /app
       - checkout
       - aws-s3/copy:
           arguments: '--dryrun'
