@@ -7,25 +7,25 @@ jobs:
     executor:
       name: win/default
       shell: powershell.exe
-    working_directory: /app
+    working_directory: ~/app
     steps:
       - checkout
       - run: npm install
       - run: npm run make
-      - run: cd /app/out/make/zip/win32/x64; Get-ChildItem * | Rename-Item -NewName magnum-opus-launcher.zip
-#      - store_artifacts:
-#          path: /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
+      - run: cd ~/app/out/make/zip/win32/x64; Get-ChildItem * | Rename-Item -NewName magnum-opus-launcher.zip
+      - store_artifacts:
+          path: ~/app/out/make/zip/win32/x64/magnum-opus-launcher.zip
   deploy-win:
     docker:
       - image: 'cimg/python:3.6'
-    working_directory: /app
+    working_directory: ~/app
     steps:
       - attach_workspace:
           at: /tmp/workspace
       - checkout
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: /app/out/make/zip/win32/x64/magnum-opus-launcher.zip
+          from: ~/app/out/make/zip/win32/x64/magnum-opus-launcher.zip
           to: s3://magnum-opus-launcher/windows
 workflows:
   version: 2
