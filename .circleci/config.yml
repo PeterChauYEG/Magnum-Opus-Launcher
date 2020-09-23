@@ -16,6 +16,8 @@ jobs:
       - persist_to_workspace:
           root: ~/app
           paths: out/make/zip/win32/x64/magnum-opus-launcher.zip
+      - store_artifacts:
+          path: ~/app/out/make/zip/win32/x64/magnum-opus-launcher.zip
   deploy-win:
     docker:
       - image: 'cimg/python:3.6'
@@ -30,10 +32,7 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - build-win:
-          filters:
-            branches:
-              only: master
+      - build-win
       - deploy-win:
           requires:
             - build-win
