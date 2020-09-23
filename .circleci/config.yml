@@ -15,7 +15,7 @@ jobs:
       - run: cd ~/app/out/make/zip/win32/x64; Get-ChildItem * | Rename-Item -NewName magnum-opus-launcher.zip
       - persist_to_workspace:
           root: ~/app
-          path: out/make/zip/win32/x64/magnum-opus-launcher.zip
+          paths: out/make/zip/win32/x64/magnum-opus-launcher.zip
   deploy-win:
     docker:
       - image: 'cimg/python:3.6'
