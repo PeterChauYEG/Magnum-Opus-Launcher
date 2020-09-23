@@ -25,7 +25,7 @@ jobs:
           at: ~/app
       - aws-s3/copy:
           from: ~/app/out/make/zip/win32/x64/magnum-opus-launcher.zip
-          to: s3://magnum-opus-launcher/windows/magnum-opus-launcher.zip
+          to: s3://launcher.magnum-opus.gg/windows/magnum-opus-launcher.zip
 workflows:
   version: 2
   build-deploy:
