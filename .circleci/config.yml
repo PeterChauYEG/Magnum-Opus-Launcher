@@ -36,6 +36,8 @@ workflows:
             branches:
               only: master
       - deploy-win:
+          requires:
+            - build-win
           filters:
             branches:
               only: master
