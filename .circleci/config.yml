@@ -23,7 +23,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/app/assets
-      - checkout
+#      - checkout
       - aws-s3/copy:
           arguments: '--dryrun'
           from: ~/app/assets/magnum-opus-launcher.zip
