@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('update-electron-app')()
+
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { download } from 'electron-dl';
 

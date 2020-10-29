@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   win: circleci/windows@2.2.0
-  aws-s3: circleci/aws-s3@1.1.0
 jobs:
   build-win:
     executor:
@@ -11,23 +10,19 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm run make
-      - run: cd ~/app/out/make/zip/win32/x64; Get-ChildItem * | Rename-Item -NewName magnum-opus-launcher.zip
-      - persist_to_workspace:
-          root: ~/app
-          paths: out/make/zip/win32/x64/magnum-opus-launcher.zip
-      - store_artifacts:
-          path: ~/app/out/make/zip/win32/x64/magnum-opus-launcher.zip
+      - save_cache:
+          key: launcher
+          paths:
+            - ~/app
   deploy-win:
     docker:
       - image: 'cimg/python:3.6'
     working_directory: ~/app
     steps:
-      - attach_workspace:
-          at: ~/app
-      - aws-s3/copy:
-          from: ~/app/out/make/zip/win32/x64/magnum-opus-launcher.zip
-          to: s3://launcher.magnum-opus.gg/windows/magnum-opus-launcher.zip
+      - checkout
+      - restore_cache:
+          key: launcher
+      - run: npm run publish
 workflows:
   version: 2
   build-deploy:
