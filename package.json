@@ -1,7 +1,7 @@
 {
   "name": "magnum-opus-launcher",
   "productName": "magnum-opus-launcher",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "My Electron application description",
   "main": ".webpack/main",
   "scripts": {
@@ -14,11 +14,24 @@
   "keywords": [],
   "author": {
     "name": "Peter Chau",
-    "email": "peter.chau-lo@peartherapeutics.com"
+    "email": "peter@labone.tech"
   },
   "license": "MIT",
   "config": {
     "forge": {
+      "publishers": [
+        {
+          "authToken": "5ec1ac9452512b91d3cb44b8bfae0a1e6e9c9f5d",
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "PeterChauYEG",
+              "name": "Magnum-Opus-Launcher"
+            },
+            "prerelease": false
+          }
+        }
+      ],
       "packagerConfig": {},
       "makers": [
         {
@@ -63,6 +76,8 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
+    "@babel/preset-typescript": "^7.12.1",
+    "@electron-forge/publisher-github": "^6.0.0-beta.54",
     "@hot-loader/react-dom": "16.13.0",
     "@types/adm-zip": "^0.4.33",
     "@types/react": "16.9.34",
@@ -79,6 +94,7 @@
     "react-hot-loader": "4.12.20",
     "react-router-dom": "5.1.2",
     "react-scripts": "3.4.1",
-    "sass-loader": "8.0.2"
+    "sass-loader": "8.0.2",
+    "update-electron-app": "^2.0.1"
   }
 }
