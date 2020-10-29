@@ -18,10 +18,9 @@ class CTA extends Component<Props> {
         let path
 
         if (os === 'darwin') {
-            path = `${userDataPath}/Mac/MagnumOpus.app`
-            console.log({ path })
-        } else if (os === 'win32') {
-            path = `${userDataPath}/Windows/MagnumOpus.exe`
+            path = `${userDataPath}/MagnumOpus/MagnumOpus.app`
+        } else {
+            path = `${userDataPath}/MagnumOpus/MagnumOpus.exe`
         }
 
         shell.openItem(path)

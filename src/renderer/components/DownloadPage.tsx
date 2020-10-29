@@ -19,11 +19,9 @@ type Props = {
 type State = {
     downloadPercent?: number;
     isExtracting?: boolean;
-    dir?: string;
 }
 
 const baseClientUrl = 'https://s3.amazonaws.com/client.magnumopus.gg'
-const filename = 'MagnumOpus.zip'
 
 class DownloadPage extends Component<Props & RouteComponentProps, State> {
     constructor(props: Props & RouteComponentProps) {
@@ -31,7 +29,6 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         this.state = {
             downloadPercent: undefined,
             isExtracting: undefined,
-            dir: undefined,
         }
 
         ipcRenderer.on('download-progress', (event, data) => {
@@ -44,21 +41,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
     }
 
     componentDidMount(): void {
-        const { os } = this.props
-        let dir
-
-        if (os === 'darwin') {
-            dir = "mac"
-        } else if (os === 'win32') {
-            dir = "windows"
-        }
-
-        this.setState(
-            {
-                dir,
-            },
-            this.downloadFile
-        )
+        this.downloadFile()
     }
 
     extractFile = (): void => {
@@ -72,16 +55,18 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
             isExtracting: true
         })
 
-        const zipFile = new DecompressZip(`${downloadPath}/${filename}`)
+        const zipFile = new DecompressZip(`${downloadPath}/MagnumOpus.zip`)
+
         zipFile.extract({
-            path: `${userDataPath}/client`
+            path: `${userDataPath}`
         })
 
         zipFile.on('extract', () => {
             const { os } = this.props
+
             if (os === 'darwin') {
                 shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.app`)
-            } else if (os === 'win32') {
+            } else {
                 shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.exe`)
             }
 
@@ -95,10 +80,19 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
     }
 
     downloadFile = (): void => {
+        const { os } = this.props
+        let dir = ''
+
+        if (os === 'darwin') {
+            dir = "mac"
+        } else {
+            dir = "windows"
+        }
+
         ipcRenderer.send(
             'download-item',
             {
-                url: `${baseClientUrl}/${this.state.dir}/${filename}`,
+                url: `${baseClientUrl}/${dir}/MagnumOpus.zip`,
             },
         )
     }
