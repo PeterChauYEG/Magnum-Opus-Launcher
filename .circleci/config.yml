@@ -10,19 +10,20 @@ jobs:
     steps:
       - checkout
       - run: npm install
-#      - save_cache:
-#          key: launcher
-#          paths:
-#            - ~/app
+      - save_cache:
+          key: launcher
+          paths:
+            - ~/app
   deploy-win:
-    docker:
-      - image: 'cimg/python:3.6'
+    executor:
+      name: win/default
+      shell: powershell.exe
     working_directory: ~/app
     steps:
       - checkout
-#      - restore_cache:
-#          key: launcher
-      - run: npm install
+      - restore_cache:
+          key: launcher
+#      - run: npm install
       - run: npm run publish
 workflows:
   version: 2
