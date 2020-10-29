@@ -3,6 +3,10 @@
   "productName": "magnum-opus-launcher",
   "version": "0.1.0",
   "description": "My Electron application description",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/PeterChauYEG/Magnum-Opus-Launcher.git"
+  },
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
