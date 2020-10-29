@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from "./Header";
+import Header from './Header';
 import { ipcRenderer, shell } from 'electron'
 import storage from 'electron-localstorage'
 import { withRouter, RouteComponentProps } from "react-router-dom";
@@ -19,10 +19,11 @@ type Props = {
 type State = {
     downloadPercent?: number;
     isExtracting?: boolean;
-    filename?: string;
+    dir?: string;
 }
 
 const baseClientUrl = 'https://s3.amazonaws.com/client.magnumopus.gg'
+const filename = 'MagnumOpus.zip'
 
 class DownloadPage extends Component<Props & RouteComponentProps, State> {
     constructor(props: Props & RouteComponentProps) {
@@ -30,7 +31,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         this.state = {
             downloadPercent: undefined,
             isExtracting: undefined,
-            filename: undefined,
+            dir: undefined,
         }
 
         ipcRenderer.on('download-progress', (event, data) => {
@@ -44,24 +45,24 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
 
     componentDidMount(): void {
         const { os } = this.props
-        let filename
+        let dir
 
         if (os === 'darwin') {
-            filename = "Mac.zip"
+            dir = "mac"
         } else if (os === 'win32') {
-            filename = "Windows.zip"
+            dir = "windows"
         }
 
         this.setState(
             {
-                filename,
+                dir,
             },
             this.downloadFile
         )
     }
 
     extractFile = (): void => {
-        const { isExtracting, filename } = this.state
+        const { isExtracting } = this.state
 
         if (isExtracting) {
             return
@@ -79,9 +80,9 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         zipFile.on('extract', () => {
             const { os } = this.props
             if (os === 'darwin') {
-                shell.openItem(`${userDataPath}/Mac/MagnumOpus.app`)
+                shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.app`)
             } else if (os === 'win32') {
-                shell.openItem(`${userDataPath}/Windows/MagnumOpus.exe`)
+                shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.exe`)
             }
 
             this.setDownloaded()
@@ -97,7 +98,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         ipcRenderer.send(
             'download-item',
             {
-                url: `${baseClientUrl}/${this.state.filename}`,
+                url: `${baseClientUrl}/${this.state.dir}/${filename}`,
             },
         )
     }
