@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from "./Header";
+import Header from "../components/Header";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ipcRenderer} from "electron";
 import storage from "electron-localstorage";

@@ -30,11 +30,11 @@ class CTA extends Component<Props> {
         const { installedClientVersion, latestClientVersion } = this.props
 
         if (!installedClientVersion) {
-            return <Link to="/download">Download</Link>
+            return <Link to="/download">Download Game</Link>
         }
 
         if (installedClientVersion != latestClientVersion) {
-            return <Link to="/download">Update</Link>
+            return <Link to="/download">Update Game</Link>
         }
 
         return <button onClick={this.startGame}>Start Game</button>

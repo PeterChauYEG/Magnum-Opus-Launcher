@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import CTA from "./CTA";
-import Version from "./Version";
-import Header from "./Header";
+import CTA from "../components/CTA";
+import Version from "../components/Version";
+import Header from "../components/Header";
 import storage from 'electron-localstorage'
-import LauncherVersion from "./LauncherVersion";
+import LauncherVersion from "../components/LauncherVersion";
 
 type Props = {
 	latestClientVersion?: string,
