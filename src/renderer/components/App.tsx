@@ -15,9 +15,9 @@ const app = require('electron').remote.app
 
 type Props = {}
 type State = {
-    latestClientVersion?: string,
-    installedClientVersion?: string,
-    os: string,
+    latestClientVersion?: string;
+    latestLauncherVersion?: string;
+    os: string;
 }
 
 const userDataPath = app.getPath('userData')
@@ -44,7 +44,8 @@ class App extends Component<Props, State> {
 
                 response.json().then(data => {
                     this.setState({
-                        latestClientVersion: data.gameVersion
+                        latestClientVersion: data.gameVersion,
+                        latestLauncherVersion: data.launcherVersion,
                     })
                 });
             })
@@ -52,7 +53,7 @@ class App extends Component<Props, State> {
     }
 
     render() {
-        const { latestClientVersion, os } = this.state
+        const { latestLauncherVersion, latestClientVersion, os } = this.state
         return (
             <HashRouter>
                 <div>
@@ -64,7 +65,11 @@ class App extends Component<Props, State> {
                             <UpdatePage latestClientVersion={latestClientVersion} os={os} />
                         </Route>
                         <Route path="/">
-                            <StartPage latestClientVersion={latestClientVersion} os={os} />
+                            <StartPage
+                                latestLauncherVersion={latestLauncherVersion}
+                                latestClientVersion={latestClientVersion}
+                                os={os}
+                            />
                         </Route>
                     </Switch>
                 </div>

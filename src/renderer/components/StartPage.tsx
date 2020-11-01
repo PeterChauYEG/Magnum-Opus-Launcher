@@ -3,9 +3,11 @@ import CTA from "./CTA";
 import Version from "./Version";
 import Header from "./Header";
 import storage from 'electron-localstorage'
+import LauncherVersion from "./LauncherVersion";
 
 type Props = {
 	latestClientVersion?: string,
+	latestLauncherVersion?: string,
 	os: string,
 }
 type State = {
@@ -27,8 +29,8 @@ class StartPage extends Component<Props, State> {
 	}
 
 	render() {
-		const { latestClientVersion, os } = this.props
-		const { installedClientVersion  } = this.state
+		const { latestLauncherVersion, latestClientVersion, os } = this.props
+		const { installedClientVersion,  } = this.state
 
 		return(
 			<div>
@@ -37,6 +39,7 @@ class StartPage extends Component<Props, State> {
 					<CTA installedClientVersion={installedClientVersion} latestClientVersion={latestClientVersion} os={os} />
 				</div>
 			<Version installedClientVersion={installedClientVersion} latestClientVersion={latestClientVersion} />
+			<LauncherVersion latestLauncherVersion={latestLauncherVersion} />
 		  </div>
 		);
   	}
