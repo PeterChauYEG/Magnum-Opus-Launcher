@@ -12,7 +12,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run make
-      - run: cd ~/app/out/make/squirrel.windows/x64; Get-ChildItem * | Rename-Item -NewName magnum-opus-launcher.exe
+      - run: cd ~/app/out/make/squirrel.windows/x64/magnum-opus-laucher*.exe; Get-ChildItem * | Rename-Item -NewName magnum-opus-launcher.exe
       - persist_to_workspace:
           root: ~/app
           paths: out/make/squirrel.windows/x64/magnum-opus-launcher.exe

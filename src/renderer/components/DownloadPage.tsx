@@ -106,14 +106,20 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
     }
 
     render() {
-        const { downloadPercent } = this.state
+        const { downloadPercent, isExtracting } = this.state
         return(
             <div>
                 <Header />
                 <div>
-                    <p>
-                        {`Download progress: ${this.formatPercent(downloadPercent)}`}
-                    </p>
+                    {
+                        isExtracting
+                            ? (<p>
+                                {`Extracting....`}
+                            </p>)
+                            : (<p>
+                                {`Download progress: ${this.formatPercent(downloadPercent)}`}
+                            </p>)
+                    }
                 </div>
             </div>
         );

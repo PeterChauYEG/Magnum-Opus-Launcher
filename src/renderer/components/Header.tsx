@@ -4,6 +4,7 @@ class Header extends Component{
         return(
             <div>
                 <h1>Magnum Opus</h1>
+                <h2>Game Launcher</h2>
             </div>
         );
     }

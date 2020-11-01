@@ -6,7 +6,7 @@ type Props = {
 }
 
 class LauncherVersion extends Component<Props> {
-    renderUpdateLauncherButton() {
+    render() {
         const { latestLauncherVersion } = this.props
 
         if (installedLauncherVersion === latestLauncherVersion) {
@@ -16,19 +16,6 @@ class LauncherVersion extends Component<Props> {
         return (
             <a href={'https://s3-us-west-1.amazonaws.com/launcher.magnum-opus.gg/windows/magnum-opus-launcher.zip'}>Update game launcher</a>
         )
-    }
-
-    render() {
-        const { latestLauncherVersion } = this.props
-        return (
-            <div>
-                <p>{`Installed Launcher version: ${installedLauncherVersion}`}</p>
-                <p>{`Latest Launcher version: ${latestLauncherVersion}`}</p>
-                {
-                    this.renderUpdateLauncherButton()
-                }
-            </div>
-        );
     }
 }
 
