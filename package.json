@@ -23,6 +23,9 @@
       "makers": [
         {
           "name": "@electron-forge/maker-zip"
+        },
+        {
+          "name": "@electron-forge/maker-squirrel"
         }
       ],
       "plugins": [
@@ -63,6 +66,7 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@hot-loader/react-dom": "16.13.0",
     "@types/adm-zip": "^0.4.33",
     "@types/react": "16.9.34",
