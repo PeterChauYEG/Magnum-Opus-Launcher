@@ -12,12 +12,12 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run make
-      - run: cd ~/app/out/make/zip/win32/x64; Get-ChildItem * | Rename-Item -NewName magnum-opus-launcher.zip
+      - run: cd ~/app/out/make/squirrel.windows/x64; Get-ChildItem * | Rename-Item -NewName magnum-opus-launcher.exe
       - persist_to_workspace:
           root: ~/app
-          paths: out/make/zip/win32/x64/magnum-opus-launcher.zip
+          paths: out/make/squirrel.windows/x64/magnum-opus-launcher.exe
       - store_artifacts:
-          path: ~/app/out/make/zip/win32/x64/magnum-opus-launcher.zip
+          path: ~/app/out/make/squirrel.windows/x64/magnum-opus-launcher.exe
   deploy-win:
     docker:
       - image: 'cimg/python:3.6'
@@ -26,8 +26,8 @@ jobs:
       - attach_workspace:
           at: ~/app
       - aws-s3/copy:
-          from: ~/app/out/make/zip/win32/x64/magnum-opus-launcher.zip
-          to: s3://launcher.magnum-opus.gg/windows/magnum-opus-launcher.zip
+          from: ~/app/out/make/squirrel.windows/x64/magnum-opus-launcher.exe
+          to: s3://launcher.magnum-opus.gg/windows/magnum-opus-launcher.exe
 workflows:
   version: 2
   build-deploy:
