@@ -112,7 +112,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
             return 'Not started'
         }
 
-        return `${Math.round(downloadPercent * 10000) / 100}%`
+        return `${Math.round(downloadPercent * 100) / 100}%`
     }
 
     render() {

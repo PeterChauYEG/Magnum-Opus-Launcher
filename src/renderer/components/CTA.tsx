@@ -17,6 +17,8 @@ class CTA extends Component<Props> {
         const { os } = this.props
         let path
 
+        console.log(userDataPath)
+
         if (os === 'darwin') {
             path = `${userDataPath}/MagnumOpus/MagnumOpus.app`
         } else {

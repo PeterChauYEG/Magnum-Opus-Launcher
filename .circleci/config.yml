@@ -10,7 +10,7 @@ jobs:
     working_directory: ~/app
     steps:
       - checkout
-      - run: npm install
+      - run: npm ci
       - run: npm run make
       - run: cd ~/app/out/make/squirrel.windows/x64; Get-ChildItem * -Include *.exe | Rename-Item -NewName magnum-opus-launcher.exe
       - persist_to_workspace:
