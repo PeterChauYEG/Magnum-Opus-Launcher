@@ -7,8 +7,10 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import DecompressZip from 'decompress-zip'
 
 const app = require('electron').remote.app
+
 const downloadPath = app.getPath('downloads')
 const userDataPath = app.getPath('userData')
+const BASE_CLIENT_URL = 'https://s3.amazonaws.com/client.magnumopus.gg'
 
 type Props = {
     latestClientVersion?: string;
@@ -21,22 +23,21 @@ type State = {
     isExtracting?: boolean;
 }
 
-const baseClientUrl = 'https://s3.amazonaws.com/client.magnumopus.gg'
-
 class DownloadPage extends Component<Props & RouteComponentProps, State> {
     constructor(props: Props & RouteComponentProps) {
         super(props);
         this.state = {
             downloadPercent: undefined,
-            isExtracting: undefined,
+            isExtracting: false,
         }
 
         ipcRenderer.on('download-progress', (event, data) => {
-            this.setState({ downloadPercent: data.percent })
+            this.setState({ downloadPercent: data.percent }, () => {
+                if (data.transferredBytes === data.totalBytes) {
+                    this.extractFile()
+                }
+            })
 
-            if (data.transferredBytes === data.totalBytes) {
-                this.extractFile()
-            }
         })
     }
 
@@ -44,7 +45,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         this.downloadFile()
     }
 
-    extractFile = (): void => {
+    extractFile(): void {
         const { isExtracting } = this.state
 
         if (isExtracting) {
@@ -53,51 +54,60 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
 
         this.setState({
             isExtracting: true
-        })
+        },
+        () => {
+            console.log('1')
+            const zipFile = new DecompressZip(`${downloadPath}/MagnumOpus.zip`)
 
-        const zipFile = new DecompressZip(`${downloadPath}/MagnumOpus.zip`)
+            console.log('2')
+            zipFile.on('extract', () => {
+                console.log('3')
+                const {os} = this.props
 
-        zipFile.extract({
-            path: `${userDataPath}`
-        })
+                if (os === 'darwin') {
+                    shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.app`)
+                } else {
+                    shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.exe`)
+                }
+                console.log('4')
+                this.setDownloaded()
+                console.log('5')
+                this.props.history.push("/")
+                console.log('6')
+            })
 
-        zipFile.on('extract', () => {
-            const { os } = this.props
-
-            if (os === 'darwin') {
-                shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.app`)
-            } else {
-                shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.exe`)
-            }
-
-            this.setDownloaded()
-            this.props.history.push("/")
+            zipFile.extract({
+                path: `${userDataPath}`
+            })
         })
     }
 
     setDownloaded(): void {
         storage.setItem('installedClientVersion', this.props.latestClientVersion);
+        this.setState({
+            isExtracting: false
+        })
     }
 
-    downloadFile = (): void => {
+    downloadFile(): void {
         const { os } = this.props
-        let dir = ''
-
-        if (os === 'darwin') {
-            dir = "mac"
-        } else {
-            dir = "windows"
-        }
+        const dir = os === 'darwin' ? "mac" :"windows"
 
         ipcRenderer.send(
             'download-item',
             {
-                url: `${baseClientUrl}/${dir}/MagnumOpus.zip`,
+                url: `${BASE_CLIENT_URL}/${dir}/MagnumOpus.zip`,
             },
         )
     }
 
-    formatPercent(downloadPercent?: number): string {
+    formatProgress(): string {
+        const { downloadPercent, isExtracting } = this.state
+
+        if (isExtracting) {
+            return 'Extracting...'
+        }
+
         if (!downloadPercent) {
             return 'Not started'
         }
@@ -106,20 +116,13 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
     }
 
     render() {
-        const { downloadPercent, isExtracting } = this.state
         return(
             <div>
                 <Header />
                 <div>
-                    {
-                        isExtracting
-                            ? (<p>
-                                {`Extracting....`}
-                            </p>)
-                            : (<p>
-                                {`Download progress: ${this.formatPercent(downloadPercent)}`}
-                            </p>)
-                    }
+                    <p>
+                        {`Download progress: ${this.formatProgress()}`}
+                    </p>
                 </div>
             </div>
         );
