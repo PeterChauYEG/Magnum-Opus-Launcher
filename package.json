@@ -75,7 +75,7 @@
     "decompress-zip": "0.2.2",
     "electron-dl": "3.0.0",
     "electron-localstorage": "1.0.5",
-    "electron-squirrel-startup": "^1.0.0",
+    "electron-squirrel-startup": "1.0.0",
     "node-sass": "4.14.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",

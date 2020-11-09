@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { download } from 'electron-dl';
+// @ts-ignore
 import startup from 'electron-squirrel-startup'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
