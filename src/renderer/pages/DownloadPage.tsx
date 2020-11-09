@@ -52,30 +52,29 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
             return
         }
 
+        const zipFile = new DecompressZip(`${downloadPath}/MagnumOpus.zip`)
+
+        zipFile.on('extract', () => {
+            console.log('3')
+            const {os} = this.props
+
+            if (os === 'darwin') {
+                shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.app`)
+            } else {
+                shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.exe`)
+            }
+            console.log('4')
+            this.setDownloaded()
+            console.log('5')
+            this.props.history.push("/")
+            console.log('6')
+        })
+
         this.setState({
             isExtracting: true
         },
         () => {
-            console.log('1')
-            const zipFile = new DecompressZip(`${downloadPath}/MagnumOpus.zip`)
-
             console.log('2')
-            zipFile.on('extract', () => {
-                console.log('3')
-                const {os} = this.props
-
-                if (os === 'darwin') {
-                    shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.app`)
-                } else {
-                    shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.exe`)
-                }
-                console.log('4')
-                this.setDownloaded()
-                console.log('5')
-                this.props.history.push("/")
-                console.log('6')
-            })
-
             zipFile.extract({
                 path: `${userDataPath}`
             })
