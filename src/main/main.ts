@@ -1,9 +1,12 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { download } from 'electron-dl';
+import startup from 'electron-squirrel-startup'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
 const createWindow = (): void => {
+  if (startup) return app.quit();
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,

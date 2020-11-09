@@ -32,7 +32,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         }
 
         ipcRenderer.on('download-progress', (event, data) => {
-            if (data.transferredBytes % 5) {
+            if (data.transferredBytes % 10 === 0) {
                 this.setState({ downloadPercent: data.percent })
             }
 

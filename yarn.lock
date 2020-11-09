@@ -1079,6 +1079,14 @@
     "@babel/plugin-transform-react-jsx-source" "^7.12.1"
     "@babel/plugin-transform-react-pure-annotations" "^7.12.1"
 
+"@babel/preset-typescript@7.12.1":
+  version "7.12.1"
+  resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.12.1.tgz#86480b483bb97f75036e8864fe404cc782cc311b"
+  integrity sha512-hNK/DhmoJPsksdHuI/RVrcEws7GN5eamhi28JkO52MqIxU8Z0QpmiSOQxZHWOHV7I3P4UjHV97ay4TcamMA6Kw==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.10.4"
+    "@babel/plugin-transform-typescript" "^7.12.1"
+
 "@babel/preset-typescript@7.9.0":
   version "7.9.0"
   resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.9.0.tgz#87705a72b1f0d59df21c179f7c3d2ef4b16ce192"
@@ -1086,14 +1094,6 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-transform-typescript" "^7.9.0"
-
-"@babel/preset-typescript@^7.12.1":
-  version "7.12.1"
-  resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.12.1.tgz#86480b483bb97f75036e8864fe404cc782cc311b"
-  integrity sha512-hNK/DhmoJPsksdHuI/RVrcEws7GN5eamhi28JkO52MqIxU8Z0QpmiSOQxZHWOHV7I3P4UjHV97ay4TcamMA6Kw==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.10.4"
-    "@babel/plugin-transform-typescript" "^7.12.1"
 
 "@babel/runtime-corejs3@^7.12.1":
   version "7.12.1"
@@ -1330,7 +1330,7 @@
     fs-extra "^9.0.1"
     which "^2.0.2"
 
-"@electron-forge/maker-squirrel@^6.0.0-beta.54":
+"@electron-forge/maker-squirrel@6.0.0-beta.54":
   version "6.0.0-beta.54"
   resolved "https://registry.yarnpkg.com/@electron-forge/maker-squirrel/-/maker-squirrel-6.0.0-beta.54.tgz#4b58e42e8e75179309db91e84fcf681b7918d0a2"
   integrity sha512-JJ+HmUe94zZ6mZnyv3IvNLQ5nwoj4dcQ4gzwps4P3fCEpuABMr74KOlza7fMXrrs8cwOrGfMFwsk80GTcLdWkg==
@@ -1814,7 +1814,7 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@types/adm-zip@^0.4.33":
+"@types/adm-zip@0.4.33":
   version "0.4.33"
   resolved "https://registry.yarnpkg.com/@types/adm-zip/-/adm-zip-0.4.33.tgz#ea5b94f771443f655613b64f920c0555867200dd"
   integrity sha512-WM0DCWFLjXtddl0fu0+iN2ZF+qz8RF9RddG5OSy/S90AQz01Fu8lHn/3oTIZDxvG8gVcnBLAHMHOdBLbV6m6Mw==
@@ -2484,10 +2484,10 @@ adjust-sourcemap-loader@2.0.0:
     object-path "0.11.4"
     regex-parser "2.2.10"
 
-adm-zip@^0.4.14:
-  version "0.4.16"
-  resolved "https://registry.yarnpkg.com/adm-zip/-/adm-zip-0.4.16.tgz#cf4c508fdffab02c269cbc7f471a875f05570365"
-  integrity sha512-TFi4HBKSGfIKsK5YCkKaaFG2m4PEDyViZmEwof3MTIgzimHLto6muaHVpbrljdIvIrFZzEq/p4nafOeLcYegrg==
+adm-zip@0.4.14:
+  version "0.4.14"
+  resolved "https://registry.yarnpkg.com/adm-zip/-/adm-zip-0.4.14.tgz#2cf312bcc9f8875df835b0f6040bd89be0a727a9"
+  integrity sha512-/9aQCnQHF+0IiCl0qhXoK7qs//SwYE7zX8lsr/DNk1BRAHYxeLZPL4pguwK29gUEqasYQjqPtEpDRSWEkdHn9g==
 
 aggregate-error@^3.0.0:
   version "3.1.0"
@@ -4525,7 +4525,7 @@ decompress-response@^6.0.0:
   dependencies:
     mimic-response "^3.1.0"
 
-decompress-zip@^0.2.2:
+decompress-zip@0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/decompress-zip/-/decompress-zip-0.2.2.tgz#f03eaa719914868d7f5ccbdfb36930cc98cfb260"
   integrity sha512-v+Na3Ck86Px7s2ix+f77pMQC3GlkxHHN+YyvnkEW7+xX5F39pcDpIV/VFvGYk8MznTFcMoPjL3XNWEJLXWoSPw==
@@ -4865,16 +4865,16 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-electron-dl@^3.0.0:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/electron-dl/-/electron-dl-3.0.2.tgz#302a46f9a449ddce720cb8e7f2a24c386e19a26c"
-  integrity sha512-pRgE9Jbhoo5z6Vk3qi+vIrfpMDlCp2oB1UeR96SMnsfz073jj0AZGQwp69EdIcEvlUlwBSGyJK8Jt6OB6JLn+g==
+electron-dl@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/electron-dl/-/electron-dl-3.0.0.tgz#42c5cb572af44e90b3aa4b709a14abe701bbc31c"
+  integrity sha512-TeBRv+vQgNVLGf/XLV4EYfYIBMI4TQcw84aDlM8xEm/1Lgxux3PUXDzaingivf+6jMvRojXSRPTHmiWI/6LrqQ==
   dependencies:
     ext-name "^5.0.0"
     pupa "^2.0.1"
     unused-filename "^2.1.0"
 
-electron-localstorage@^1.0.5:
+electron-localstorage@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/electron-localstorage/-/electron-localstorage-1.0.5.tgz#910df498b3b125519a00accc99cd770275978822"
   integrity sha512-wmEcjZdyFI1YFlCtU8g8JP0FJ02WuIrUyNwxu0Mn7Be5YiFowuejeudgWMTaa2zd2qJlQCLmA3bj8pydIoti7Q==
