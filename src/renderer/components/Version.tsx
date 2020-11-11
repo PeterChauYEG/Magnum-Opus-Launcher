@@ -1,19 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 type Props = {
-    latestClientVersion?: string,
     installedClientVersion?: string,
 }
 
-class Version extends Component<Props> {
-    render() {
-        const { installedClientVersion, latestClientVersion } = this.props
-        return (
-            <p>
-                {`Installed Client version: ${installedClientVersion} || Latest Client version: ${latestClientVersion}`}
-            </p>
-        );
-    }
+const Version = (props: Props) => {
+    const { installedClientVersion } = props
+    return (
+        <p
+            style={{
+                marginTop: 0,
+                marginRight: 0,
+                marginBottom: '8px',
+                marginLeft: '8px'
+            }}
+        >
+            {`Installed version: ${installedClientVersion}`}
+        </p>
+    );
 }
 
 export default Version;

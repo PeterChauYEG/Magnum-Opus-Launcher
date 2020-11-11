@@ -1,22 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { version as installedLauncherVersion } from '../../../package.json';
+import Button from "./Button";
 
 type Props = {
     latestLauncherVersion?: string,
 }
 
-class LauncherVersion extends Component<Props> {
-    render() {
-        const { latestLauncherVersion } = this.props
+const LauncherVersion = (props: Props) => {
+    const { latestLauncherVersion } = props
 
-        if (installedLauncherVersion === latestLauncherVersion) {
-            return null
-        }
-
-        return (
-            <a href={'https://s3-us-west-1.amazonaws.com/launcher.magnum-opus.gg/windows/magnum-opus-launcher.zip'}>Update game launcher</a>
-        )
+    if (installedLauncherVersion === latestLauncherVersion) {
+        return null
     }
+
+    return (
+        <Button
+            title={'Update Game Launcher'}
+            href={'https://s3-us-west-1.amazonaws.com/launcher.magnum-opus.gg/windows/magnum-opus-launcher.exe'}
+        />
+    )
 }
 
 export default LauncherVersion;

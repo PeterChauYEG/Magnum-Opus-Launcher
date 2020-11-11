@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-class Header extends Component{
-    render(){
-        return(
-            <div>
-                <h1>Magnum Opus Launcher</h1>
-            </div>
-        );
-    }
+import React from 'react';
+
+const Header = () => {
+    return (
+        <h1>
+            Magnum Opus
+        </h1>
+    );
 }
 export default Header;

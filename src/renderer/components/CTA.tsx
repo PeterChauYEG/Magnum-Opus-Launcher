@@ -36,7 +36,11 @@ class CTA extends Component<Props> {
         }
 
         if (installedClientVersion != latestClientVersion) {
-            return <Link to="/download">Update Game</Link>
+            return (
+                <Link to="/download">
+                    Update Game
+                </Link>
+            )
         }
 
         return <button onClick={this.startGame}>Start Game</button>
