@@ -5,9 +5,9 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import StartPage from "../pages/StartPage";
-import DownloadPage from "../pages/DownloadPage";
-import UpdatePage from "../pages/UpdatePage";
+import StartPage from "./pages/StartPage";
+import DownloadPage from "./pages/DownloadPage";
+import UpdatePage from "./pages/UpdatePage";
 import storage from 'electron-localstorage'
 import os from 'os'
 

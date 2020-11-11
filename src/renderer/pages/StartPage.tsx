@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import storage from 'electron-localstorage'
 import CTA from '../components/CTA';
 import Version from "../components/Version";
 import Header from "../components/Header";
 import LauncherVersion from "../components/LauncherVersion";
-import city from '../../../public/media/imgs/city.png'
+import forest from '../../../public/media/videos/forest-1.mp4'
+import Page from "../components/Page";
 
 type Props = {
 	latestClientVersion?: string,
@@ -20,33 +21,13 @@ const StartPage = ({
 	const installedClientVersion = storage.getItem('installedClientVersion')
 
 	return (
-		<div>
-			<img
-				src={city}
-				style={{
-					height: '100%',
-					width: '100%',
-					position: 'absolute',
-					top: 0,
-					left: 0,
-					right: 0,
-					bottom: 0,
-					zIndex: 0,
-					objectFit: 'cover'
-				}}
-			/>
+		<Page backgroundVideo={forest}>
 			<div
 				style={{
-					height: '100%',
-					width: '100%',
-					top: 0,
-					bottom: 0,
-					left: 0,
-					right: 0,
-					position: 'absolute',
 					display: 'grid',
 					gridTemplateRows: '90vh 10vh'
-				}}>
+				}}
+			>
 				<div
 					style={{
 						gridRowStart: 1,
@@ -85,7 +66,7 @@ const StartPage = ({
 					/>
 				</div>
 			</div>
-		</div>
+		</Page>
 	);
 }
 

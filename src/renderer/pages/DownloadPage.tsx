@@ -3,8 +3,12 @@ import Header from '../components/Header';
 import { ipcRenderer, shell } from 'electron'
 import storage from 'electron-localstorage'
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import Page from "../components/Page";
+import city from '../../../public/media/imgs/city.png'
+
 // @ts-ignore
 import DecompressZip from 'decompress-zip'
+import Progress from "../components/ProgressBar";
 
 const app = require('electron').remote.app
 
@@ -19,7 +23,7 @@ type Props = {
 }
 
 type State = {
-    downloadPercent?: number;
+    downloadPercent: number;
     isExtracting?: boolean;
 }
 
@@ -27,7 +31,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
     constructor(props: Props & RouteComponentProps) {
         super(props);
         this.state = {
-            downloadPercent: undefined,
+            downloadPercent: 0,
             isExtracting: false,
         }
 
@@ -112,19 +116,49 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
             return 'Not started'
         }
 
-        return `${Math.round(downloadPercent * 100) / 100}%`
+        return 'Downloading'
     }
 
     render() {
+        const { downloadPercent } = this.state
+
         return(
-            <div>
-                <Header />
-                <div>
-                    <p>
-                        {`Download progress: ${this.formatProgress()}`}
-                    </p>
+            <Page backgroundImage={city}>
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateRows: '90vh 10vh'
+                    }}
+                >
+                    <div
+                        style={{
+                            gridRowStart: 1,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Header />
+                        <div
+                            style={{
+                                marginBottom: '16px'
+                            }}
+                        >
+                            <p
+                                style={{
+                                    fontSize: '1.5em'
+                                }}
+                            >
+                                {this.formatProgress()}
+                            </p>
+                        </div>
+                        <Progress
+                            percent={downloadPercent / 100}
+                        />
+                    </div>
                 </div>
-            </div>
+            </Page>
         );
     }
 }

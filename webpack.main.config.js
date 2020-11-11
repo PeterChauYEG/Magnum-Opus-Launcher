@@ -23,6 +23,6 @@ module.exports = {
       '@models': srcPaths('src/models'),
       '@renderer': srcPaths('src/renderer'),
     },
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json']
+    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json', 'mp4']
   },
 };
