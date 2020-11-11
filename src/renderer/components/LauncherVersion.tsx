@@ -1,6 +1,6 @@
 import React from 'react';
 import { version as installedLauncherVersion } from '../../../package.json';
-import Button from "./Button";
+import LinkButton from "./LinkButton";
 
 type Props = {
     latestLauncherVersion?: string,
@@ -14,7 +14,7 @@ const LauncherVersion = (props: Props) => {
     }
 
     return (
-        <Button
+        <LinkButton
             title={'Update Game Launcher'}
             href={'https://s3-us-west-1.amazonaws.com/launcher.magnum-opus.gg/windows/magnum-opus-launcher.exe'}
         />
