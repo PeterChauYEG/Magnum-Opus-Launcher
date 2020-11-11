@@ -57,9 +57,7 @@ const Page = ({ children, backgroundImage, backgroundVideo}: Props) => {
 			}
 			<div
 				style={{
-					height: '100%',
 					width: '100%',
-					top: 0,
 					bottom: 0,
 					left: 0,
 					right: 0,

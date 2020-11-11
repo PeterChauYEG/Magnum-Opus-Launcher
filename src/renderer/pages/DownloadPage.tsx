@@ -20,6 +20,7 @@ type Props = {
     latestClientVersion?: string;
     history: any;
     os: string;
+    setInstalledClientVersion: any;
 }
 
 type State = {
@@ -36,7 +37,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         }
 
         ipcRenderer.on('download-progress', (event, data) => {
-            if (data.transferredBytes % 10 === 0) {
+            if ((data.transferredBytes * 10000) % 10 === 0) {
                 this.setState({ downloadPercent: data.percent })
             }
 
@@ -60,26 +61,13 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         const zipFile = new DecompressZip(`${downloadPath}/MagnumOpus.zip`)
 
         zipFile.on('extract', () => {
-            console.log('3')
-            const {os} = this.props
-
-            if (os === 'darwin') {
-                shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.app`)
-            } else {
-                shell.openItem(`${userDataPath}/MagnumOpus/MagnumOpus.exe`)
-            }
-            console.log('4')
             this.setDownloaded()
-            console.log('5')
-            this.props.history.push("/")
-            console.log('6')
         })
 
         this.setState({
             isExtracting: true
         },
         () => {
-            console.log('2')
             zipFile.extract({
                 path: `${userDataPath}`
             })
@@ -88,9 +76,10 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
 
     setDownloaded(): void {
         storage.setItem('installedClientVersion', this.props.latestClientVersion);
+        this.props.setInstalledClientVersion(this.props.latestClientVersion)
         this.setState({
-            isExtracting: false
-        })
+            isExtracting: false,
+        }, () => this.props.history.push("/"))
     }
 
     downloadFile(): void {
@@ -109,7 +98,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         const { downloadPercent, isExtracting } = this.state
 
         if (isExtracting) {
-            return 'Extracting...'
+            return 'Extracting'
         }
 
         if (!downloadPercent) {
@@ -127,7 +116,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateRows: '90vh 10vh'
+                        gridTemplateRows: '100vh'
                     }}
                 >
                     <div
@@ -154,7 +143,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
                             </p>
                         </div>
                         <Progress
-                            percent={downloadPercent / 100}
+                            percent={downloadPercent * 100}
                         />
                     </div>
                 </div>

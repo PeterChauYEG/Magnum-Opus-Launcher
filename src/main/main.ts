@@ -15,7 +15,8 @@ const createWindow = (): void => {
     webPreferences: {
       webSecurity: false,
       nodeIntegration: true,
-    }
+    },
+    titleBarStyle: "hidden"
   });
 
   // and load the index.html of the app.

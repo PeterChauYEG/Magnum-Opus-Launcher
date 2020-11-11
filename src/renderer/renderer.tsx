@@ -31,6 +31,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from '../serviceWorker';
 import '../../public/index.scss';
+import storage from "electron-localstorage";
 
 ReactDOM.render(<App/>, document.getElementById('app'));
 
