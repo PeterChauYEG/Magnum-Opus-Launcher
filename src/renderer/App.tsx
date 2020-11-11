@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import StartPage from "./pages/StartPage";
 import DownloadPage from "./pages/DownloadPage";
-import UpdatePage from "./pages/UpdatePage";
 import storage from 'electron-localstorage'
 import os from 'os'
 import { Titlebar, Color } from 'custom-electron-titlebar'
@@ -29,7 +28,6 @@ storage.setStoragePath(`${userDataPath}/data.json`);
 const titlebar = new Titlebar({
     backgroundColor: Color.fromHex('#fff3f3'),
     maximizable: false,
-    titleHorizontalAlignment: 'left',
     order: 'first-buttons'
 });
 
@@ -67,12 +65,6 @@ const App = (props: Props) => {
                             latestClientVersion={latestClientVersion}
                             os={userOs}
                             setInstalledClientVersion={setInstalledClientVersion}
-                        />
-                    </Route>
-                    <Route path="/update">
-                        <UpdatePage
-                            latestClientVersion={latestClientVersion}
-                            os={userOs}
                         />
                     </Route>
                     <Route path="/">
