@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import LauncherVersion from "../components/LauncherVersion";
 import Page from "../components/Page";
 import { useHistory } from "react-router-dom";
-import forestRef from '../../../videos/forest-1.mp4'
+import forestRef from '../../../assets/videos/forest-1.mp4'
 
 console.log(forestRef)
 const forest = '../forest-1.mp4'
