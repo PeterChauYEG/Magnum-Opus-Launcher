@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { nativeImage, app, BrowserWindow, ipcMain } from 'electron';
 import { download } from 'electron-dl';
 // @ts-ignore
 import startup from 'electron-squirrel-startup'
@@ -8,6 +8,11 @@ declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 const createWindow = (): void => {
   if (startup) return app.quit();
 
+  const iconPath = app.getAppPath() + '/assets/icons/icon.png'
+  const icon = nativeImage.createFromPath(iconPath)
+
+  app.dock.setIcon(icon)
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
@@ -16,10 +21,17 @@ const createWindow = (): void => {
       webSecurity: false,
       nodeIntegration: true,
     },
-    titleBarStyle: "hidden"
-  });
+    maximizable: false,
+    minimizable: false,
+    titleBarStyle: "hidden",
+    frame: false,
+    icon,
+});
 
-  // and load the index.html of the app.
+  mainWindow.setIcon(icon);
+  mainWindow.setTitle('Magnum Opus')
+
+    // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.

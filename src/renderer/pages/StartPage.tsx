@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react';
-import storage from 'electron-localstorage'
 import CTA from '../components/CTA';
-import Version from "../components/Version";
+import Version from '../components/Version';
 import Header from "../components/Header";
 import LauncherVersion from "../components/LauncherVersion";
-import forest from '../../../public/media/videos/forest-1.mp4'
 import Page from "../components/Page";
 import { useHistory } from "react-router-dom";
+import forest from '../../../assets/videos/forest-1.mp4'
 
 type Props = {
 	latestClientVersion?: string,
@@ -34,7 +33,7 @@ const StartPage = ({
 			<div
 				style={{
 					display: 'grid',
-					gridTemplateRows: '100vh'
+					gridTemplateRows: '90vh 10vh'
 				}}
 			>
 				<div
@@ -61,6 +60,19 @@ const StartPage = ({
 					</div>
 					<LauncherVersion
 						latestLauncherVersion={latestLauncherVersion}
+					/>
+				</div>
+				<div
+					style={{
+						gridRowStart: 2,
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						justifyContent: 'flex-end',
+					}}
+				>
+					<Version
+						installedClientVersion={installedClientVersion}
 					/>
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {hot} from "react-hot-loader/root";
 import {
     HashRouter,
@@ -9,37 +9,20 @@ import StartPage from "./pages/StartPage";
 import DownloadPage from "./pages/DownloadPage";
 import storage from 'electron-localstorage'
 import os from 'os'
-import { Titlebar, Color } from 'custom-electron-titlebar'
 
 const app = require('electron').remote.app
 
 type Props = {}
-type State = {
-    latestClientVersion?: string;
-    latestLauncherVersion?: string;
-    os: string;
-}
 
 const userDataPath = app.getPath('userData')
 const userOs = os.platform()
 
 storage.setStoragePath(`${userDataPath}/data.json`);
 
-const titlebar = new Titlebar({
-    backgroundColor: Color.fromHex('#fff3f3'),
-    maximizable: false,
-    order: 'first-buttons'
-});
-
 const App = (props: Props) => {
     const [latestClientVersion, setLatestClientVersion] = useState(undefined)
     const [latestLauncherVersion, setLatestLauncherVersion] = useState(undefined)
     const [installedClientVersion, setInstalledClientVersion] = useState(storage.getItem('installedClientVersion'))
-
-
-    useEffect(() => {
-            titlebar.updateTitle(`Magnum Opus ${installedClientVersion}`)
-    }, [installedClientVersion, titlebar])
 
     useEffect(() => {
             fetch('https://api.magnumopus.gg/health')

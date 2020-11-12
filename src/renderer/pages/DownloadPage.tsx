@@ -4,7 +4,7 @@ import { ipcRenderer, shell } from 'electron'
 import storage from 'electron-localstorage'
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
-import city from '../../../public/media/imgs/city.png'
+import city from '../../../assets/imgs/city.png'
 
 // @ts-ignore
 import DecompressZip from 'decompress-zip'

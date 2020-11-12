@@ -16,10 +16,6 @@ module.exports = [
     },
   },
   {
-    test: /\.mp4$/,
-    use: 'file-loader?name=videos/[name].[ext]',
-  },
-  {
     test: /\.tsx?$/,
     exclude: /(node_modules|\.webpack)/,
     loaders: [
@@ -38,7 +34,7 @@ module.exports = [
     use: ["style-loader", "css-loader", "sass-loader"],
   },
   {
-    test: /\.(svg|ico|icns)$/,
+    test: /\.(svg|ico|icns|mp4)$/,
     loader: "file-loader",
     options: {
       name: "[path][name].[ext]",
