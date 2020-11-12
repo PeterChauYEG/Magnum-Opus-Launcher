@@ -5,6 +5,7 @@ import startup from 'electron-squirrel-startup'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
+
 const createWindow = (): void => {
   if (startup) return app.quit();
 

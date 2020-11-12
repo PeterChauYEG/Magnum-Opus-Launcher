@@ -34,7 +34,7 @@ module.exports = [
     use: ["style-loader", "css-loader", "sass-loader"],
   },
   {
-    test: /\.(svg|ico|icns|mp4)$/,
+    test: /\.(svg|ico|icns)$/,
     loader: "file-loader",
     options: {
       name: "[path][name].[ext]",
@@ -47,4 +47,17 @@ module.exports = [
       name: "[path][name].[ext]",
     },
   },
+  {
+    test: /\.mp4$/,
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          mimetype: 'video/mp4',
+          name: "[name].[ext]",
+        }
+      }
+    ]
+  }
 ];
