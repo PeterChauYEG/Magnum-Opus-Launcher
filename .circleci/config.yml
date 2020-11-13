@@ -27,7 +27,7 @@ jobs:
           at: ~/app
       - aws-s3/copy:
           from: ~/app/out/make/squirrel.windows/x64/magnum-opus-launcher.exe
-          to: s3://launcher.magnum-opus.gg/windows/magnum-opus-launcher.exe
+          to: s3://launcher.magnumopus.gg/windows/magnum-opus-launcher.exe
 workflows:
   version: 2
   build-deploy:
