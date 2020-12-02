@@ -18,7 +18,6 @@ const userDataPath = app.getPath('userData')
 const userOs = os.platform()
 
 storage.setStoragePath(`${userDataPath}/data.json`);
-
 const App = (props: Props) => {
     const [latestClientVersion, setLatestClientVersion] = useState(undefined)
     const [latestLauncherVersion, setLatestLauncherVersion] = useState(undefined)

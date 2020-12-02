@@ -12,7 +12,9 @@ const createWindow = (): void => {
   const iconPath = app.getAppPath() + '/assets/icons/icon.png'
   const icon = nativeImage.createFromPath(iconPath)
 
-  app.dock.setIcon(icon)
+  if (process.platform === 'darwin') {
+    // app.dock.setIcon(icon)
+  }
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -37,6 +39,24 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
+
+  ipcMain.on(
+    'download',
+    async (event, { url, properties }) => {
+      /* eslint-disable-next-line @typescript-eslint/ban-ts-ignore */
+      // @ts-ignore
+      const win: BrowserWindow = BrowserWindow.getFocusedWindow();
+
+      properties.onProgress = (data: { percent: number; transferredBytes: number; totalBytes: number }) => mainWindow.webContents.send("download progress", data);
+
+      const result = await download(
+        win,
+        url,
+        properties
+      );
+     
+      mainWindow.webContents.send('download complete', result.getSavePath())
+});
 };
 
 
@@ -60,21 +80,6 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
-});
-
-ipcMain.on(
-    'download-item',
-    async (event, { url }) => {
-        /* eslint-disable-next-line @typescript-eslint/ban-ts-ignore */
-      // @ts-ignore
-        const win: BrowserWindow = BrowserWindow.getFocusedWindow();
-      await download(
-          win,
-          url,
-          {
-            onProgress: (data: { percent: number; transferredBytes: number; totalBytes: number }) => event.reply('download-progress', data)
-          }
-      );
 });
 
 // In this file you can include the rest of your app's specific main process

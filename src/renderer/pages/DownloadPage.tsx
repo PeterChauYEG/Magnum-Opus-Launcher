@@ -5,9 +5,7 @@ import storage from 'electron-localstorage'
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import Page from "../components/Page";
 import city from '../../../assets/imgs/city.png'
-
-// @ts-ignore
-import DecompressZip from 'decompress-zip'
+import extract from 'extract-zip'
 import Progress from "../components/ProgressBar";
 
 const app = require('electron').remote.app
@@ -36,14 +34,14 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
             isExtracting: false,
         }
 
-        ipcRenderer.on('download-progress', (event, data) => {
-            if ((data.transferredBytes * 10000) % 10 === 0) {
+        ipcRenderer.on('download progress', async (event, data) => {
+            if ((Math.floor(data.percent * 100)) % 1 === 0) {
                 this.setState({ downloadPercent: data.percent })
             }
+        })
 
-            if (data.transferredBytes === data.totalBytes) {
-                this.extractFile()
-            }
+        ipcRenderer.on('download complete', async (event, path) => {
+            await this.extractFile(path)
         })
     }
 
@@ -51,27 +49,24 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         this.downloadFile()
     }
 
-    extractFile(): void {
+    async extractFile(path: string): Promise<void> {
         const { isExtracting } = this.state
 
         if (isExtracting) {
             return
         }
 
-        const zipFile = new DecompressZip(`${downloadPath}/MagnumOpus.zip`)
-
-        zipFile.on('extract', () => {
-            this.setDownloaded()
-        })
-
-        this.setState({
-            isExtracting: true
-        },
-        () => {
-            zipFile.extract({
-                path: `${userDataPath}`
+        try {
+            this.setState({
+              isExtracting: true
             })
-        })
+
+            await extract(path, { dir: userDataPath })
+
+            this.setDownloaded()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     setDownloaded(): void {
@@ -87,9 +82,10 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         const dir = os === 'darwin' ? "mac" :"windows"
 
         ipcRenderer.send(
-            'download-item',
+            'download',
             {
                 url: `${BASE_CLIENT_URL}/${dir}/MagnumOpus.zip`,
+                properties: { directory: downloadPath }
             },
         )
     }
@@ -98,11 +94,11 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
         const { downloadPercent, isExtracting } = this.state
 
         if (isExtracting) {
-            return 'Extracting'
+            return `Extracting`
         }
 
         if (downloadPercent) {
-            return 'Downloading'
+            return `Downloading: ${Math.floor(downloadPercent * 100)}%`
         }
 
         return 'Not started'
@@ -143,7 +139,7 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
                             </p>
                         </div>
                         <Progress
-                            percent={downloadPercent * 100}
+                            percent={downloadPercent}
                         />
                     </div>
                 </div>
