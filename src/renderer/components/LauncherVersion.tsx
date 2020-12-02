@@ -16,7 +16,7 @@ const LauncherVersion = (props: Props) => {
     return (
         <LinkButton
             title={'Update Game Launcher'}
-            href={'https://s3-us-west-1.amazonaws.com/launcher.magnum-opus.gg/windows/magnum-opus-launcher.exe'}
+            href={'https://s3-us-west-1.amazonaws.com/launcher.magnumopus.gg/windows/magnum-opus-launcher.exe'}
         />
     )
 }

@@ -101,11 +101,11 @@ class DownloadPage extends Component<Props & RouteComponentProps, State> {
             return 'Extracting'
         }
 
-        if (!downloadPercent) {
-            return 'Not started'
+        if (downloadPercent) {
+            return 'Downloading'
         }
 
-        return 'Downloading'
+        return 'Not started'
     }
 
     render() {
