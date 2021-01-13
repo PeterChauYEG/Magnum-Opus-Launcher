@@ -6,7 +6,10 @@ import LauncherVersion from "../components/LauncherVersion";
 import Page from "../components/Page";
 import { useHistory } from "react-router-dom";
 import forestRef from '../../../assets/videos/forest-1.mp4'
+import Button from "../components/Button";
+import { remote} from 'electron'
 
+//required
 console.log(forestRef)
 const forest = '../forest-1.mp4'
 
@@ -52,7 +55,8 @@ const StartPage = ({
 					<div
 						style={{
 							marginBottom: '24px',
-							display: 'flex'
+							display: 'flex',
+							flexDirection: 'column',
 						}}
 					>
 						<CTA
@@ -60,6 +64,18 @@ const StartPage = ({
 							latestClientVersion={latestClientVersion}
 							os={os}
 						/>
+						<div
+							style={{
+								marginTop: '8px',
+							}}
+						>
+							<Button
+								onClick={() => {
+									remote.getCurrentWindow().close()
+								}}
+								title={'Exit'}
+							/>
+						</div>
 					</div>
 					<LauncherVersion
 						latestLauncherVersion={latestLauncherVersion}
