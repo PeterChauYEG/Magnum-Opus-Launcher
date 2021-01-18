@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import forestRef from '../../../assets/videos/forest-1.mp4'
 import Button from "../components/Button";
 import { remote} from 'electron'
+import LinkButton from "../components/LinkButton";
 
 //required
 console.log(forestRef)
@@ -54,16 +55,37 @@ const StartPage = ({
 					<Header />
 					<div
 						style={{
-							marginBottom: '24px',
+							marginTop: '32px',
 							display: 'flex',
 							flexDirection: 'column',
 						}}
 					>
-						<CTA
-							installedClientVersion={installedClientVersion}
-							latestClientVersion={latestClientVersion}
-							os={os}
+						<div
+							style={{
+								marginBottom: '8px',
+								display: 'flex'
+							}}
+						>
+							<CTA
+								installedClientVersion={installedClientVersion}
+								latestClientVersion={latestClientVersion}
+								os={os}
+							/>
+						</div>
+						<LauncherVersion
+							latestLauncherVersion={latestLauncherVersion}
 						/>
+						<div
+							style={{
+								marginTop: '8px',
+								display: 'flex'
+							}}
+						>
+							<LinkButton
+								title={'Give Feedback'}
+								href={'https://forms.gle/i5MfFvmx8z8t75KZ6'}
+							/>
+						</div>
 						<div
 							style={{
 								marginTop: '8px',
@@ -77,9 +99,6 @@ const StartPage = ({
 							/>
 						</div>
 					</div>
-					<LauncherVersion
-						latestLauncherVersion={latestLauncherVersion}
-					/>
 				</div>
 				<div
 					style={{
