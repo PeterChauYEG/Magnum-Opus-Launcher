@@ -91,7 +91,7 @@
     "electron-localstorage": "1.0.5",
     "electron-squirrel-startup": "1.0.0",
     "extract-zip": "^2.0.1",
-    "node-sass": "4.14.0",
+    "node-sass": "7.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-hot-loader": "4.12.20",
